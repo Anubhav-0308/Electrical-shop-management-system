@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Owner Dashboard — Shri Krishna Lighthouse Bhonti</title>
+<meta name="description" content="Owner dashboard for Shri Krishna Lighthouse Bhonti — manage products, brands, orders and customer messages." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div id="layout-header"></div>
+
+<main>
+  <div class="container page-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div class="eyebrow">// owner dashboard</div>
+      <h1>Shop Control Panel</h1>
+    </div>
+    <button class="btn btn-outline" id="admin-logout-btn">🚪 Log Out</button>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="products">Products</button>
+        <button class="tab-btn" data-tab="brands">Brands</button>
+        <button class="tab-btn" data-tab="orders">Orders / Bills</button>
+        <button class="tab-btn" data-tab="messages">Messages</button>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="tab-panel active" data-panel="products">
+        <div class="card" style="margin-bottom:20px;">
+          <h3 id="product-form-title">Add a Product</h3>
+          <input type="hidden" id="prod-id" />
+          <div class="form-row">
+            <div class="form-group"><label>Product Name</label><input type="text" id="prod-name" placeholder="e.g. 5-Pin Socket 6A" /></div>
+            <div class="form-group"><label>Category</label><input type="text" id="prod-category" placeholder="e.g. switch, 5-pin-socket, mcb" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Brand</label><select id="prod-brand"></select></div>
+            <div class="form-group"><label>Price / Rate (₹)</label><input type="number" id="prod-price" min="0" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Unit</label><input type="text" id="prod-unit" value="pcs" /></div>
+            <div class="form-group"><label>Featured on homepage?</label>
+              <select id="prod-featured"><option value="false">No</option><option value="true">Yes</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label>Description</label><textarea id="prod-desc" rows="2"></textarea></div>
+          <div class="form-group">
+            <label>Product Image</label>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+              <label for="prod-image-file" class="btn btn-outline btn-small" style="cursor:pointer;margin:0;">
+                📷 Choose Image
+              </label>
+              <input type="file" id="prod-image-file" accept="image/*" style="display:none;" />
+              <span id="prod-image-status" style="font-size:0.83rem;color:var(--muted);">No image chosen</span>
+            </div>
+            <div id="prod-image-preview-wrap" style="margin-top:10px;display:none;">
+              <img id="prod-image-preview" src="" alt="Preview"
+                style="max-width:140px;max-height:140px;border-radius:8px;border:1.5px solid var(--border);object-fit:cover;" />
+              <button type="button" id="prod-image-clear" class="btn btn-small btn-outline" style="margin-left:10px;vertical-align:top;">✕ Remove</button>
+            </div>
+            <input type="hidden" id="prod-image" />
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-primary" id="prod-save-btn">Save Product</button>
+            <button class="btn btn-outline hidden" id="prod-cancel-btn">Cancel Edit</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Category</th><th>Brand</th><th>Rate</th><th>Stock</th><th>Featured</th><th>Actions</th></tr></thead>
+            <tbody id="products-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BRANDS -->
+      <div class="tab-panel" data-panel="brands">
+        <div class="card" style="max-width:420px;margin-bottom:20px;">
+          <h3>Add a Brand</h3>
+          <div class="form-group"><label>Brand Name</label><input type="text" id="brand-name" placeholder="e.g. Havells" /></div>
+          <button class="btn btn-primary" id="brand-save-btn">Add Brand</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Brand</th><th>Actions</th></tr></thead>
+            <tbody id="brands-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="tab-panel" data-panel="orders">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Bill #</th><th>Customer</th><th>Phone / Email</th><th>Total</th><th>Payment</th><th>Status</th><th>Invoice</th><th>Update</th></tr></thead>
+            <tbody id="admin-orders-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="tab-panel" data-panel="messages">
+        <div id="messages-list"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="layout-footer"></div>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

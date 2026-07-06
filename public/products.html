@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Products — Shri Krishna Lighthouse Bhonti</title>
+<meta name="description" content="Browse and buy electrical products — switches, sockets, wires, MCBs, LED bulbs, fans and more at Shri Krishna Lighthouse Bhonti with instant bill generation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div id="layout-header"></div>
+
+<main>
+  <div class="container page-title">
+    <div class="eyebrow">// products</div>
+    <h1 id="products-title">All Products</h1>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="tabs" id="category-tabs"><!-- filled by JS --></div>
+      <div id="product-grid" class="product-grid"><!-- filled by JS --></div>
+      <div id="empty-products" class="empty-state hidden">No products found. Try a different search or category.</div>
+    </div>
+  </section>
+</main>
+
+<!-- Floating cart -->
+<button class="btn btn-primary cart-fab" id="open-cart">
+  🧾 View Bill <span id="cart-count" class="badge hidden" style="position:static;margin-left:6px;">0</span>
+</button>
+
+<div id="cart-overlay" class="overlay hidden"></div>
+<div id="cart-drawer" class="cart-drawer">
+  <div class="cart-header">
+    <strong>Your Bill</strong>
+    <button id="close-cart" class="icon-btn">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Total</span><span id="cart-total">₹0</span></div>
+    <button class="btn btn-primary btn-block" id="checkout-btn">Generate Bill</button>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div id="checkout-overlay" class="overlay hidden"></div>
+<div id="checkout-modal" class="hidden" style="position:fixed;z-index:130;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;max-width:92vw;">
+  <div class="card">
+    <h3>Enter your details</h3>
+    <div class="form-group"><label>Full Name</label><input type="text" id="co-name" /></div>
+    <div class="form-group"><label>Phone Number *</label><input type="tel" id="co-phone" required /></div>
+    <div class="form-group"><label>Email *</label><input type="email" id="co-email" required /></div>
+    <div class="form-group"><label>Address (optional)</label><input type="text" id="co-address" /></div>
+    <div class="form-group">
+      <label>Payment Method</label>
+      <select id="co-payment"><option value="cod">Cash / Pay at shop</option><option value="online">Online Payment</option></select>
+    </div>
+    <button class="btn btn-primary btn-block" id="confirm-checkout">Confirm &amp; Generate Bill</button>
+    <div id="checkout-msg" class="form-msg"></div>
+  </div>
+</div>
+
+<!-- Bill / invoice result modal -->
+<div id="bill-overlay" class="overlay hidden"></div>
+<div id="bill-modal" class="hidden" style="position:fixed;z-index:130;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;max-width:92vw;">
+  <div class="card">
+    <h3>✅ Bill Generated</h3>
+    <p id="bill-summary" class="mono"></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a id="bill-invoice-link" class="btn btn-outline" target="_blank">Download Invoice (PDF)</a>
+      <button id="bill-pay-btn" class="btn btn-primary">Pay Online</button>
+    </div>
+    <button class="btn btn-outline btn-block" style="margin-top:12px;" id="bill-close">Close</button>
+  </div>
+</div>
+
+<div id="layout-footer"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/products.js"></script>
+</body>
+</html>

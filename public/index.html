@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shri Krishna Lighthouse Bhonti — Electrical &amp; Electronics Shop</title>
+  <meta name="description"
+    content="Browse switches, sockets, wires, MCBs, LED bulbs and more at Shri Krishna Lighthouse Bhonti. Owner-fixed rates with instant automatic billing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div id="layout-header"></div>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">// owner-fixed rates · instant billing</div>
+          <h1>Shri Krishna Light House Bhonti</h1>
+          <p class="lead">Switches, sockets, wires, MCBs and lighting from Shri Krishna Lighthouse Bhonti — pick your
+            products, the total is calculated automatically, and your bill is ready in seconds.</p>
+          <div class="hero-cta">
+            <a href="/products.html" class="btn btn-primary">Browse Products</a>
+            <a href="/contact.html" class="btn btn-outline">Contact the Owner</a>
+          </div>
+        </div>
+
+        <div class="filament-card">
+          <div class="bulb-glow">
+            <img src="/src/images/logo.png" alt="Shri Krishna Lighthouse Bhonti Logo"
+              class="bulb-svg"
+              style="width:100%;max-width:280px;height:auto;object-fit:contain;border-radius:12px;" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container">
+        <div class="scroll-banner-wrap">
+          <div class="scroll-banner-label">Featured this week</div>
+          <div class="scroll-track" id="scroll-track"><!-- filled by JS --></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Shop by category</h2>
+            <p>Tap a category to see every option we stock in it.</p>
+          </div>
+        </div>
+        <div class="category-grid" id="category-grid"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What customers say</h2>
+            <p>Real feedback from people who've billed with us.</p>
+          </div>
+          <a href="/customer-dashboard.html#reviews" class="btn btn-outline btn-small">Leave a review</a>
+        </div>
+        <div id="home-reviews" class="card"><!-- filled by JS --></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="layout-footer"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+
+</html>

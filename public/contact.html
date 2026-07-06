@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Shri Krishna Lighthouse Bhonti</title>
+  <meta name="description"
+    content="Contact Shri Krishna Lighthouse Bhonti — send a message to the owner, get pricing info, or find our shop details." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div id="layout-header"></div>
+
+  <main>
+    <div class="container page-title">
+      <div class="eyebrow">// contact</div>
+      <h1>Get in touch with the owner</h1>
+    </div>
+
+    <section class="section">
+      <div class="container about-grid">
+        <div class="card">
+          <h3>Send a message</h3>
+          <form id="contact-form">
+            <div class="form-group"><label for="c-name">Your Name</label><input type="text" id="c-name" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="c-phone">Phone Number</label><input type="tel" id="c-phone"
+                  required /></div>
+              <div class="form-group"><label for="c-email">Email</label><input type="email" id="c-email" required />
+              </div>
+            </div>
+            <div class="form-group"><label for="c-message">Message</label><textarea id="c-message" rows="5"
+                required></textarea></div>
+            <button class="btn btn-primary btn-block" type="submit" id="contact-btn">Send Message</button>
+            <div id="contact-msg" class="form-msg"></div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>Shop Details</h3>
+          <p><strong>Shri Krishna Lighthouse Bhonti</strong></p>
+          <p>Owner: Anubhav Kanthariya</p>
+          <p class="mono">📞 <a href="tel:8519075190">8519075190</a></p>
+          <p class="mono">✉️ <a href="mailto:anubhavkanthariya@gmail.com">anubhavkanthariya@gmail.com</a></p>
+          <hr style="border-color:var(--line);margin:16px 0;" />
+          <h3>Follow</h3>
+          <div class="social-row">
+            <a href="https://instagram.com/annu.0308" target="_blank" rel="noopener" title="Instagram">📷</a>
+            <a href="https://facebook.com/annu.0308" target="_blank" rel="noopener" title="Facebook">📘</a>
+            <a href="https://youtube.com/@annu.0308" target="_blank" rel="noopener" title="YouTube">▶️</a>
+            <a href="https://linkedin.com/in/annu.0308" target="_blank" rel="noopener" title="LinkedIn">💼</a>
+            <a href="https://twitter.com/annu.0308" target="_blank" rel="noopener" title="Twitter">🐦</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="layout-footer"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/layout.js"></script>
+  <script>
+    document.getElementById("contact-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("contact-btn");
+      const msgEl = document.getElementById("contact-msg");
+      msgEl.textContent = ""; msgEl.className = "form-msg";
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      try {
+        await api("/contact", {
+          method: "POST",
+          body: {
+            name: document.getElementById("c-name").value,
+            phone: document.getElementById("c-phone").value,
+            email: document.getElementById("c-email").value,
+            message: document.getElementById("c-message").value,
+          },
+        });
+        msgEl.textContent = "Message sent! The owner will get back to you soon.";
+        msgEl.classList.add("success");
+        e.target.reset();
+      } catch (err) {
+        msgEl.textContent = err.message;
+        msgEl.classList.add("error");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Send Message";
+      }
+    });
+  </script>
+</body>
+
+</html>

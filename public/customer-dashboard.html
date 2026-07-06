@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Dashboard — Shri Krishna Lighthouse Bhonti</title>
+<meta name="description" content="View your orders, billing history and reviews at Shri Krishna Lighthouse Bhonti customer dashboard." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div id="layout-header"></div>
+
+<main>
+  <div class="container page-title">
+    <div class="eyebrow">// customer dashboard</div>
+    <h1>Welcome, <span id="cust-name">Customer</span></h1>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="profile">Profile</button>
+        <button class="tab-btn" data-tab="orders">My Bills</button>
+        <button class="tab-btn" data-tab="reviews" id="reviews">Ratings &amp; Reviews</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="profile">
+        <div class="card" style="max-width:480px;">
+          <h3>My Profile</h3>
+          <p><strong id="p-name"></strong></p>
+          <p class="mono" id="p-email"></p>
+          <p class="mono" id="p-phone"></p>
+          <button class="btn btn-outline" id="logout-btn" style="margin-top:14px;">Log out</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="orders">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Bill #</th><th>Date</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Invoice</th></tr></thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+        </div>
+        <div id="orders-empty" class="empty-state hidden">You haven't generated any bills yet. <a href="/products.html" style="color:var(--amber);">Browse products</a>.</div>
+      </div>
+
+      <div class="tab-panel" data-panel="reviews">
+        <div class="card" style="max-width:520px;">
+          <h3>Rate the shop</h3>
+          <div class="stars" id="rating-stars">
+            <span class="star" data-val="1">★</span><span class="star" data-val="2">★</span><span class="star" data-val="3">★</span><span class="star" data-val="4">★</span><span class="star" data-val="5">★</span>
+          </div>
+          <div class="form-group" style="margin-top:12px;"><textarea id="review-comment" rows="3" placeholder="Tell us about your experience…"></textarea></div>
+          <button class="btn btn-primary" id="submit-review">Submit Review</button>
+          <div id="review-msg" class="form-msg"></div>
+        </div>
+        <div class="card" style="margin-top:20px;">
+          <h3>Recent reviews</h3>
+          <div id="all-reviews"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="layout-footer"></div>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/customer-dashboard.js"></script>
+</body>
+</html>
