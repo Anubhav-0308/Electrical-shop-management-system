@@ -11,10 +11,13 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    password: { type: String, required: true }, // hashed via bcryptjs
+    password: { type: String }, // optional for Google login users
     phone: { type: String, default: "" },
     address: { type: String, default: "" },
     role: { type: String, enum: ["admin", "customer"], default: "customer" },
+    googleId: { type: String, sparse: true, unique: true },
+    resetPasswordOtp: { type: String },
+    resetPasswordOtpExpire: { type: Date },
   },
   { timestamps: true }
 );

@@ -73,13 +73,24 @@ function wireSearch() {
 function wireSession() {
   const user = getUser();
   const link = document.getElementById("dashboard-link");
+  const logoutBtn = document.getElementById("header-logout-btn");
   if (!link) return;
+  
   if (user) {
     link.textContent = user.role === "admin" ? "Owner Dashboard" : "My Dashboard";
     link.href = user.role === "admin" ? "/admin-dashboard.html" : "/customer-dashboard.html";
+    if (logoutBtn) {
+      logoutBtn.classList.remove("hidden");
+      logoutBtn.addEventListener("click", () => {
+        clearSession();
+        toast("Logged out successfully.", "success");
+        setTimeout(() => { location.href = "/index.html"; }, 600);
+      });
+    }
   } else {
     link.textContent = "Login";
     link.href = "/login.html";
+    if (logoutBtn) logoutBtn.classList.add("hidden");
   }
 }
 

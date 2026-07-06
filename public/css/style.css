@@ -1,3 +1,5 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+
 /* ================= Design tokens =================
    Palette: near-black teal circuit-board background, filament-amber accent,
    copper-wire secondary, a spark-blue used sparingly for interactive states.
@@ -327,3 +329,12 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   .form-row { grid-template-columns: 1fr; }
 }
 
+/* ================= Follow Us Icons ================= */
+.social-container { text-align: left; margin-top: 8px; }
+.social-icons { padding: 4px; list-style: none; margin: 0; display: grid; grid-template-columns: repeat(3, 36px); gap: 12px; }
+.social-icons li { position: relative; font-size: 1em; width: 36px; height: 36px; }
+.social-icons i { color: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 265ms ease-out; z-index: 2; }
+.social-icons a { display: inline-block; width: 100%; height: 100%; }
+.social-icons a:before { transform: scale(1); -webkit-transform: scale(1); content: " "; width: 36px; height: 36px; border-radius: 100%; display: block; background: linear-gradient(45deg, #00B5F5, #002A8F); transition: all 265ms ease-out; position: absolute; top: 0; left: 0; z-index: 1; }
+.social-icons a:hover:before { transform: scale(0); transition: all 265ms ease-in; }
+.social-icons a:hover i { transform: translate(-50%, -50%) scale(1.6); -webkit-transform: translate(-50%, -50%) scale(1.6); color: #00B5F5; background: -webkit-linear-gradient(45deg, #00B5F5, #002A8F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 265ms ease-in; }

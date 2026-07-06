@@ -13,11 +13,19 @@ router.get("/", async (req, res) => {
     if (brand) filter.brand = brand;
     if (featured) filter.featured = featured === "true";
     if (search) {
+      const Brand = require("../models/Brand");
+      const matchedBrands = await Brand.find({ name: { $regex: search, $options: "i" } }).select("_id");
+      const brandIds = matchedBrands.map(b => b._id);
+      
       filter.$or = [
         { name: { $regex: search, $options: "i" } },
         { category: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
       ];
+
+      if (brandIds.length > 0) {
+        filter.$or.push({ brand: { $in: brandIds } });
+      }
     }
     const products = await Product.find(filter).populate("brand", "name logo").sort({ createdAt: -1 });
     res.json(products);

@@ -11,7 +11,7 @@ async function seed() {
   // 1. Owner / admin account
   const ownerEmail = (process.env.OWNER_EMAIL || "anubhavkanthariya@gmail.com").toLowerCase();
   const ownerUsername = (process.env.OWNER_USERNAME || "anubhavkanthariya").toLowerCase();
-  const ownerPassword = process.env.OWNER_PASSWORD || "annu.030807";
+  const ownerPassword = process.env.OWNER_PASSWORD || "Annu.03082007";
 
   const hashed = await bcrypt.hash(ownerPassword, 12);
   let owner = await User.findOne({ email: ownerEmail });
