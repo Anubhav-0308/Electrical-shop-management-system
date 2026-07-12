@@ -4,8 +4,8 @@ const API_BASE = "/api";
 // ---- Category helpers (shared across home, products, etc.) ----
 const CATEGORY_ICONS = {
   "switch": `<img src="/src/images/cat-switch.png" alt="Switch" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔘'" />`,
-  "5-pin-socket": `<img src="/src/images/cat-switch.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
-  "3-pin-socket": `<img src="/src/images/cat-switch.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
+  "5-pin-socket": `<img src="/src/images/product-5pin-socket.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
+  "3-pin-socket": `<img src="/src/images/product-3pin-socket.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
   "wire": `<img src="/src/images/cat-wire.jpeg" alt="Wire" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🧵'" />`,
   "mcb": `<img src="/src/images/cat-mcb.jpeg" alt="MCB" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🛡️'" />`,
   "led-bulb": `<img src="/src/images/cat-bulb.jpg" alt="LED Bulb" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='💡'" />`,
