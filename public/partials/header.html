@@ -1,10 +1,10 @@
 <header class="site-header">
   <div class="header-inner">
-    <a href="/index.html" class="brand">
-      <span class="brand-mark">⚡</span>
+    <a href="/index.html" class="brand" style="display: flex; align-items: center; gap: 10px;">
+      <img src="/src/images/logo.png" alt="Shri Krishna Lighthouse Logo" style="height: 40px; width: auto; border-radius: 4px;" />
       <span class="brand-text">
-        <!-- <strong id="brand-shop-name">Shri Krishna Lighthouse Bhonti</strong> -->
-        <small>Electrical &amp; Electronics</small>
+        <strong id="brand-shop-name" style="display: none;">Shri Krishna Lighthouse Bhonti</strong>
+        <small style="display: none;">Electrical &amp; Electronics</small>
       </span>
     </a>
 
@@ -27,6 +27,7 @@
     </div>
 
     <div class="header-actions">
+      <button id="theme-btn" class="icon-btn" title="Toggle Theme">🌓</button>
       <button id="notif-btn" class="icon-btn" title="Notifications">
         🔔<span id="notif-count" class="badge hidden">0</span>
       </button>

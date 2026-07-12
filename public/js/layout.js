@@ -14,6 +14,7 @@ async function loadLayout() {
   wireSearch();
   wireSession();
   wireNotifications();
+  wireTheme();
   wireBot();
   wireHamburger();
   updateCartBadge();
@@ -220,6 +221,42 @@ function wireHamburger() {
       btn.classList.remove("is-active");
       btn.setAttribute("aria-expanded", "false");
     }
+  });
+}
+
+function wireTheme() {
+  const btn = document.getElementById("theme-btn");
+  if (!btn) return;
+
+  const themes = ["auto", "light", "dark"];
+  const icons = { auto: "🌓", light: "☀️", dark: "🌙" };
+  
+  // Apply initially before UI loads to prevent flash if possible (done here on loadLayout)
+  let currentTheme = localStorage.getItem("theme") || "auto";
+  
+  function applyTheme(theme) {
+    if (theme === "auto") {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+    btn.textContent = icons[theme];
+    btn.title = `Theme: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+  }
+  
+  applyTheme(currentTheme);
+
+  btn.addEventListener("click", () => {
+    let idx = themes.indexOf(currentTheme);
+    currentTheme = themes[(idx + 1) % themes.length];
+    localStorage.setItem("theme", currentTheme);
+    applyTheme(currentTheme);
+  });
+  
+  // Listen for system theme changes if auto
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (currentTheme === "auto") applyTheme("auto");
   });
 }
 

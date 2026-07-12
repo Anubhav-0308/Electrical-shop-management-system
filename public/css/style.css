@@ -27,6 +27,23 @@
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
 }
 
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --bg-alt: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f0f2f5;
+  --line: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --amber: #d97706;
+  --amber-soft: rgba(217, 119, 6, 0.15);
+  --copper: #b45309;
+  --spark: #0ea5e9;
+  --danger: #ef4444;
+  --ok: #10b981;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -330,8 +347,8 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 }
 
 /* ================= Follow Us Icons ================= */
-.social-container { text-align: left; margin-top: 8px; }
-.social-icons { padding: 4px; list-style: none; margin: 0; display: grid; grid-template-columns: repeat(3, 36px); gap: 12px; }
+.social-container { text-align: left; margin-top: 16px; }
+.social-icons { padding: 4px; list-style: none; margin: 0; display: flex; flex-wrap: wrap; gap: 16px; }
 .social-icons li { position: relative; font-size: 1em; width: 36px; height: 36px; }
 .social-icons i { color: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 265ms ease-out; z-index: 2; }
 .social-icons a { display: inline-block; width: 100%; height: 100%; }

@@ -3,15 +3,15 @@ const API_BASE = "/api";
 
 // ---- Category helpers (shared across home, products, etc.) ----
 const CATEGORY_ICONS = {
-  "switch": "🔘",
-  "5-pin-socket": "🔌",
-  "3-pin-socket": "🔌",
-  "wire": "🧵",
-  "mcb": "🛡️",
-  "led-bulb": "💡",
-  "tube-light": "💡",
-  "fan": "🌀",
-  "extension-board": "🔗",
+  "switch": `<img src="/src/images/cat-switch.png" alt="Switch" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔘'" />`,
+  "5-pin-socket": `<img src="/src/images/cat-switch.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
+  "3-pin-socket": `<img src="/src/images/cat-switch.png" alt="Socket" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔌'" />`,
+  "wire": `<img src="/src/images/cat-wire.jpeg" alt="Wire" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🧵'" />`,
+  "mcb": `<img src="/src/images/cat-mcb.jpeg" alt="MCB" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🛡️'" />`,
+  "led-bulb": `<img src="/src/images/cat-bulb.jpg" alt="LED Bulb" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='💡'" />`,
+  "tube-light": `<img src="/src/images/cat-tube.jpeg" alt="Tube Light" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='💡'" />`,
+  "fan": `<img src="/src/images/cat-fan.jpeg" alt="Fan" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🌀'" />`,
+  "extension-board": `<img src="/src/images/cat-extension.jpeg" alt="Extension Board" style="width:48px;height:48px;object-fit:contain;margin:0 auto;display:block;" onerror="this.outerHTML='🔗'" />`,
 };
 
 function categoryIcon(cat) {
