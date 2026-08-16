@@ -7,7 +7,9 @@ Built with **HTML, CSS, JavaScript, Node.js (Express), and MongoDB.**
 
 Owner: **Anubhav Kanthariya**
 Shop: **Shri Krishna Lighthouse Bhonti**
+## 🎥 Project Demo
 
+<video src="./krishna_light.mp4" width="600" controls></video>
 ---
 
 ## 1. What's included
