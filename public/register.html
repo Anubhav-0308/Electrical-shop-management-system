@@ -20,7 +20,15 @@
         <div class="form-group"><label for="r-name">Full Name</label><input type="text" id="r-name" required autocomplete="name" /></div>
         <div class="form-group"><label for="r-email">Email</label><input type="email" id="r-email" required autocomplete="email" /></div>
         <div class="form-group"><label for="r-phone">Phone Number</label><input type="tel" id="r-phone" required autocomplete="tel" /></div>
-        <div class="form-group"><label for="r-password">Password <small style="color:var(--muted)">(min 6 characters)</small></label><input type="password" id="r-password" required minlength="6" autocomplete="new-password" /></div>
+        <div class="form-group">
+          <label for="r-password">Password <small style="color:var(--muted)">(min 6 characters)</small></label>
+          <div style="position: relative;">
+            <input type="password" id="r-password" required minlength="6" autocomplete="new-password" style="padding-right: 40px;" />
+            <button type="button" id="toggle-r-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--muted); padding: 0;" aria-label="Toggle password visibility">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        </div>
         <button class="btn btn-primary btn-block" type="submit" id="register-btn">Create Account</button>
         <div style="text-align:center;margin:16px 0;color:var(--muted);font-size:0.85rem;">OR</div>
         <button type="button" class="btn btn-outline btn-block" id="google-login-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;">
@@ -80,6 +88,21 @@ document.getElementById("google-login-btn").addEventListener("click", async () =
     location.href = data.user.role === "admin" ? "/admin-dashboard.html" : "/customer-dashboard.html";
   } catch (err) {
     alert("Google login failed: " + err.message);
+  }
+});
+
+// Password Toggle
+document.getElementById('toggle-r-password').addEventListener('click', function () {
+  const passwordInput = document.getElementById('r-password');
+  const icon = this.querySelector('i');
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
   }
 });
 </script>

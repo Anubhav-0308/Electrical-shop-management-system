@@ -23,7 +23,12 @@
         </div>
         <div class="form-group">
           <label for="l-password">Password</label>
-          <input type="password" id="l-password" required autocomplete="current-password" />
+          <div style="position: relative;">
+            <input type="password" id="l-password" required autocomplete="current-password" style="padding-right: 40px;" />
+            <button type="button" id="toggle-l-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--muted); padding: 0;" aria-label="Toggle password visibility">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
         </div>
         <div style="text-align:right;margin-top:-10px;margin-bottom:12px;">
           <a href="/forgot-password.html" style="font-size:0.85rem;color:var(--amber);text-decoration:none;">Forgot Password?</a>
@@ -85,6 +90,21 @@ document.getElementById("google-login-btn").addEventListener("click", async () =
     location.href = data.user.role === "admin" ? "/admin-dashboard.html" : "/customer-dashboard.html";
   } catch (err) {
     alert("Google login failed: " + err.message);
+  }
+});
+
+// Password Toggle
+document.getElementById('toggle-l-password').addEventListener('click', function () {
+  const passwordInput = document.getElementById('l-password');
+  const icon = this.querySelector('i');
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
   }
 });
 </script>

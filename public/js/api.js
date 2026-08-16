@@ -109,11 +109,21 @@ function cartTotal() {
 }
 
 function updateCartBadge() {
-  const badge = document.getElementById("cart-count");
-  if (!badge) return;
   const count = getCart().reduce((s, i) => s + i.quantity, 0);
-  badge.textContent = count;
-  badge.classList.toggle("hidden", count === 0);
+  
+  // Update floating badge (if exists)
+  const badge = document.getElementById("cart-count");
+  if (badge) {
+    badge.textContent = count;
+    badge.classList.toggle("hidden", count === 0);
+  }
+  
+  // Update header badge (if exists)
+  const headerBadge = document.getElementById("header-cart-count");
+  if (headerBadge) {
+    headerBadge.textContent = count;
+    headerBadge.classList.toggle("hidden", count === 0);
+  }
 }
 
 // ---- Toasts ----

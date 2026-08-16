@@ -8,7 +8,7 @@ Built with **HTML, CSS, JavaScript, Node.js (Express), and MongoDB.**
 Owner: **Anubhav Kanthariya**
 Shop: **Shri Krishna Lighthouse Bhonti**
 ## 🎥 Project Demo
-
+https://github.com/user-attachments/assets/d887015a-6289-4e64-a635-4e42cdf9a994
 ## 1. What's included
 
 - **Home page** with a scrolling banner of featured products, category grid (Switch, 5‑Pin Socket, MCB, Wire, LED Bulb, Fan, etc.), and customer reviews.

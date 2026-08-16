@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/admin-dashboard.html" class="brand" style="display: flex; align-items: center; gap: 10px;">
+      <img src="/src/images/logo.png" alt="Shri Krishna Lighthouse Logo" style="height: 40px; width: auto; border-radius: 4px;" />
+      <span class="brand-text">
+        <strong>Owner Dashboard</strong>
+        <small>Shri Krishna Lighthouse</small>
+      </span>
+    </a>
+
+    <!-- Mobile hamburger (optional for admin, but kept for consistency) -->
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="main-nav" style="flex: 1;">
+      <!-- Hidden on desktop, but useful on mobile to access actions -->
+      <a href="/index.html" class="btn btn-outline" style="border: none; padding-left: 0;">View Shop (Customer View)</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="theme-btn" class="icon-btn" title="Toggle Theme">🌓</button>
+      <button id="notif-btn" class="icon-btn" title="Notifications">
+        🔔<span id="notif-count" class="badge hidden">0</span>
+      </button>
+      <button id="header-logout-btn" class="btn btn-primary" style="margin-left: 8px;">🚪 Logout</button>
+    </div>
+  </div>
+
+  <div id="notif-panel" class="notif-panel hidden"></div>
+</header>

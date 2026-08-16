@@ -3,7 +3,9 @@ async function loadLayout() {
   const footerHost = document.getElementById("layout-footer");
 
   if (headerHost) {
-    headerHost.innerHTML = await (await fetch("/partials/header.html")).text();
+    const isOwnerLayout = document.body.dataset.layout === "admin";
+    const headerUrl = isOwnerLayout ? "/partials/admin-header.html" : "/partials/header.html";
+    headerHost.innerHTML = await (await fetch(headerUrl)).text();
   }
   if (footerHost) {
     footerHost.innerHTML = await (await fetch("/partials/footer.html")).text();
@@ -18,6 +20,7 @@ async function loadLayout() {
   wireBot();
   wireHamburger();
   updateCartBadge();
+  wireCart();
   const yearEl = document.getElementById("footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
@@ -258,6 +261,129 @@ function wireTheme() {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
     if (currentTheme === "auto") applyTheme("auto");
   });
+}
+
+/* ================= Global Cart drawer ================= */
+function wireCart() {
+  const openBtns = document.querySelectorAll(".open-cart-btn");
+  const closeBtn = document.getElementById("close-cart");
+  const drawer = document.getElementById("cart-drawer");
+  const overlay = document.getElementById("cart-overlay");
+  
+  // If drawer is not present (e.g. admin layout), do nothing
+  if (!drawer) return;
+
+  openBtns.forEach(btn => {
+    btn.addEventListener("click", () => { renderCartItems(); drawer.classList.add("open"); overlay.classList.remove("hidden"); });
+  });
+  closeBtn.addEventListener("click", closeCart);
+  overlay.addEventListener("click", closeCart);
+  function closeCart() { drawer.classList.remove("open"); overlay.classList.add("hidden"); }
+
+  document.getElementById("checkout-btn").addEventListener("click", () => {
+    if (!getCart().length) { toast("Your bill is empty. Add a product first.", "error"); return; }
+    const user = getUser();
+    if (user) {
+      document.getElementById("co-name").value = user.name || "";
+      document.getElementById("co-phone").value = user.phone || "";
+      document.getElementById("co-email").value = user.email || "";
+    }
+    document.getElementById("checkout-modal").classList.remove("hidden");
+    document.getElementById("checkout-overlay").classList.remove("hidden");
+  });
+
+  document.getElementById("checkout-overlay").addEventListener("click", closeCheckout);
+  function closeCheckout() {
+    document.getElementById("checkout-modal").classList.add("hidden");
+    document.getElementById("checkout-overlay").classList.add("hidden");
+  }
+
+  const confirmBtn = document.getElementById("confirm-checkout");
+  confirmBtn.addEventListener("click", async () => {
+    const msgEl = document.getElementById("checkout-msg");
+    msgEl.textContent = ""; msgEl.className = "form-msg";
+    const phone = document.getElementById("co-phone").value.trim();
+    const email = document.getElementById("co-email").value.trim();
+    if (!phone || !email) { msgEl.textContent = "Phone and email are required."; msgEl.classList.add("error"); return; }
+
+    // Disable button to prevent duplicate order on double-click
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Generating Bill…";
+    try {
+      const order = await api("/orders", {
+        method: "POST",
+        auth: true,
+        body: {
+          items: getCart().map((i) => ({ productId: i.productId, quantity: i.quantity })),
+          customerDetails: {
+            name: document.getElementById("co-name").value.trim(),
+            phone, email,
+            address: document.getElementById("co-address").value.trim(),
+          },
+          paymentMethod: document.getElementById("co-payment").value,
+        },
+      });
+      closeCheckout();
+      closeCart();
+      clearCart();
+      showBillResult(order);
+    } catch (err) {
+      msgEl.textContent = err.message;
+      msgEl.classList.add("error");
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Confirm & Generate Bill";
+    }
+  });
+
+  document.getElementById("bill-overlay").addEventListener("click", closeBill);
+  document.getElementById("bill-close").addEventListener("click", closeBill);
+  function closeBill() {
+    document.getElementById("bill-modal").classList.add("hidden");
+    document.getElementById("bill-overlay").classList.add("hidden");
+  }
+}
+
+function renderCartItems() {
+  const cart = getCart();
+  const host = document.getElementById("cart-items");
+  if (!host) return;
+  if (!cart.length) {
+    host.innerHTML = `<div class="empty-state">No items added yet.</div>`;
+  } else {
+    host.innerHTML = cart.map((i) => `
+      <div class="cart-item">
+        <div>
+          <div>${escapeHtml(i.name)}</div>
+          <div class="mono" style="color:var(--muted);font-size:0.78rem;">${escapeHtml(i.brandName || "")} · ₹${i.price} × ${i.quantity}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="mono">₹${i.price * i.quantity}</div>
+          <button class="btn btn-small btn-outline" data-remove="${i.productId}" style="margin-top:4px;">Remove</button>
+        </div>
+      </div>`).join("");
+    host.querySelectorAll("[data-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => { removeFromCart(btn.dataset.remove); renderCartItems(); });
+    });
+  }
+  const cartTotalEl = document.getElementById("cart-total");
+  if (cartTotalEl) cartTotalEl.textContent = `₹${cartTotal()}`;
+}
+
+function showBillResult(order) {
+  document.getElementById("bill-summary").textContent =
+    `Bill #${order._id.slice(-6).toUpperCase()} — Total ₹${order.total} (${order.paymentMethod.toUpperCase()})`;
+  document.getElementById("bill-invoice-link").href = `/api/orders/${order._id}/invoice`;
+  const payBtn = document.getElementById("bill-pay-btn");
+  payBtn.style.display = order.paymentStatus === "paid" ? "none" : "inline-flex";
+  payBtn.onclick = async () => {
+    try {
+      await api(`/orders/${order._id}/pay`, { method: "POST" });
+      toast("Payment successful!", "success");
+      payBtn.style.display = "none";
+    } catch (e) { toast("Payment failed. Please try again.", "error"); }
+  };
+  document.getElementById("bill-modal").classList.remove("hidden");
+  document.getElementById("bill-overlay").classList.remove("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);

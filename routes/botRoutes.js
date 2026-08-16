@@ -7,37 +7,27 @@ const router = express.Router();
 // ── Groq API helper ──────────────────────────────────────────────────────────
 async function callGroq(messages) {
   const apiKey = process.env.AI_API_KEY;
-  const model  = process.env.GROQ_MODEL || "llama3-8b-8192";
+  const model  = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
 
-  const payload = JSON.stringify({ model, messages, max_tokens: 512, temperature: 0.7 });
-
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: "api.groq.com",
-      path: "/openai/v1/chat/completions",
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Length": Buffer.byteLength(payload),
+        "Authorization": `Bearer ${apiKey}`
       },
-    };
-
-    const req = https.request(options, (res) => {
-      let data = "";
-      res.on("data", (chunk) => (data += chunk));
-      res.on("end", () => {
-        try {
-          const json = JSON.parse(data);
-          if (json.error) return reject(new Error(json.error.message));
-          resolve(json.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't generate a reply.");
-        } catch (e) { reject(e); }
-      });
+      body: JSON.stringify({ model, messages, max_tokens: 512, temperature: 0.7 })
     });
-    req.on("error", reject);
-    req.write(payload);
-    req.end();
-  });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error?.message || `Groq API Error: ${response.status}`);
+    }
+
+    return data.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't generate a reply.";
+  } catch (error) {
+    throw error;
+  }
 }
 
 // ── System prompt — keeps the bot focused on the shop ───────────────────────
@@ -117,7 +107,7 @@ router.post("/", async (req, res) => {
 
   } catch (err) {
     console.error("[Bot Error]", err.message);
-    res.json({ reply: "Sorry, something went wrong. Please try again in a moment." });
+    res.json({ reply: `Sorry, something went wrong (${err.message}). Please try again in a moment.` });
   }
 });
 
